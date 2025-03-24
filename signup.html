@@ -15,47 +15,61 @@
     </form>
 
     <script>
-        const binId = "67e0f5078a456b79667b758a";  // Replace with your JSONBin ID
-        const apiKey = "$2a$10$KYZf2SJ0D4vPAJzDRZdhOedUoRw6PrUyRG8Sas7.2ykXKZpU3UuIq";  // Replace with your JSONBin API Key
-
         document.getElementById("signupForm").addEventListener("submit", async function(event) {
             event.preventDefault();
 
-            let username = document.getElementById("username").value;
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
+            const binId = "67e0f5078a456b79667b758a";  // Replace with your JSONBin ID
+            const apiKey = "$2a$10$KYZf2SJ0D4vPAJzDRZdhOedUoRw6PrUyRG8Sas7.2ykXKZpU3UuIq";  // Replace with your JSONBin API Key
+            
+            let username = document.getElementById("username").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value.trim();
 
-            // Fetch existing users
-            let response = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-                method: "GET",
-                headers: { "X-Master-Key": apiKey }
-            });
-
-            let data = await response.json();
-            let users = data.record.users;
-
-            // Prevent duplicate username
-            if (users.some(user => user.username === username)) {
-                alert("Username already taken! Try another one.");
+            if (!username || !email || !password) {
+                alert("All fields are required!");
                 return;
             }
 
-            // Add new user to the users array
-            users.push({ username, email, password });
+            try {
+                // Fetch existing users
+                let response = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+                    method: "GET",
+                    headers: { "X-Master-Key": apiKey }
+                });
 
-            // Update JSONBin with the new user
-            await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-Master-Key": apiKey
-                },
-                body: JSON.stringify({ users })
-            });
+                if (!response.ok) throw new Error("Failed to fetch data");
 
-            // Redirect to homepage with username in localStorage
-            localStorage.setItem("username", username);
-            window.location.href = "index.html";
+                let data = await response.json();
+                let users = data.record.users || [];
+
+                // Prevent duplicate username
+                if (users.some(user => user.username === username)) {
+                    alert("Username already taken! Try another one.");
+                    return;
+                }
+
+                // Add new user
+                users.push({ username, email, password });
+
+                // Update JSONBin with the new user
+                let updateResponse = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": apiKey
+                    },
+                    body: JSON.stringify({ users })
+                });
+
+                if (!updateResponse.ok) throw new Error("Failed to update data");
+
+                // Store username in localStorage and redirect
+                localStorage.setItem("username", username);
+                window.location.href = "index.html";
+            } catch (error) {
+                console.error(error);
+                alert("Something went wrong. Please try again.");
+            }
         });
     </script>
 </body>
