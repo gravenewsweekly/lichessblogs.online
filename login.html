@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LichessOnline</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Login to LichessOnline</h1>
+    </header>
+
+    <section class="content">
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+    </section>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            // Mock login validation (Replace with real authentication)
+            if (username === "test" && password === "1234") {
+                localStorage.setItem("username", username);
+                window.location.href = "index.html"; // Redirect to homepage
+            } else {
+                alert("Invalid username or password!");
+            }
+        });
+    </script>
+
+</body>
+</html>
