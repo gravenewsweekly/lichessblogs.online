@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs - LichessOnline</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Blurred content styling */
+        .blurred {
+            filter: blur(5px);
+            pointer-events: none;
+            user-select: none;
+        }
+        .blur-message {
+            text-align: center;
+            font-size: 18px;
+            color: #ff0;
+            background-color: #222;
+            padding: 10px;
+            margin: 20px;
+            border: 2px solid #ff0;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -20,41 +38,41 @@
 
         <!-- Blog Post 1 -->
         <article class="blog-post">
-            <img src="placeholder1.jpg" alt="Chess Opening Strategies">
-            <h2>♟️ Mastering Chess Openings</h2>
-            <p>Learn the best opening strategies to gain control early in the game. This blog discusses the most effective openings like the Sicilian Defense, French Defense, and more.</p>
-            <a href="https://lichess.org/blog/XvR2YxIAACgA8e7l/opening-principles" class="btn">View More</a>
+            <img src="placeholder1.jpg" alt="I Don't Like Chess Tournaments">
+            <h2>🤔 I Don't Like Chess Tournaments</h2>
+            <p>This blog takes a personal approach to analyzing chess tournaments, their flaws, and why they may not be the best format for every player.</p>
+            <a href="https://lichess.org/@/CheckRaiseMate/blog/i-dont-like-chess-tournaments/VaiIgfdX" class="btn">View More</a>
         </article>
 
         <!-- Blog Post 2 -->
         <article class="blog-post">
-            <img src="placeholder2.jpg" alt="Chess Tactics and Tricks">
-            <h2>🔥 Tactics & Tricks for Beginners</h2>
-            <p>Improve your game with essential tactical patterns like forks, pins, skewers, and discovered attacks. These tactics can turn the game in your favor.</p>
-            <a href="https://lichess.org/blog/XvR2YxIAACgA8e7k/chess-tactics" class="btn">View More</a>
+            <img src="placeholder2.jpg" alt="Chess Football - A Fun and Creative Variant">
+            <h2>⚽ Chess Football - A Fun and Creative Variant</h2>
+            <p>A unique chess variant that combines chess and football mechanics, allowing players to strategize differently in a sports-themed environment.</p>
+            <a href="https://lichess.org/@/MathiCasa/blog/chess-football-a-fun-and-creative-variant/CdmUQ6nC" class="btn">View More</a>
         </article>
 
         <!-- Blog Post 3 -->
         <article class="blog-post">
-            <img src="placeholder3.jpg" alt="How to Improve Chess Rating">
-            <h2>🏆 How to Reach 2000+ Elo?</h2>
-            <p>Advanced players share their secrets on how to reach 2000+ Elo. Learn about opening preparation, positional understanding, and endgame techniques.</p>
-            <a href="https://lichess.org/blog/YdSdBRAAAMvJX5Ys/improving-your-rating" class="btn">View More</a>
+            <img src="placeholder3.jpg" alt="Science of Chess - What Makes a Move Brilliant?">
+            <h2>🧠 Science of Chess - What Makes a Move Brilliant?</h2>
+            <p>Ever wondered why certain chess moves are considered brilliant? This blog explores the mathematical and strategic factors that define genius moves.</p>
+            <a href="https://lichess.org/@/NDpatzer/blog/science-of-chess-what-makes-a-move-seem-brilliant/wtFdMXzO" class="btn">View More</a>
         </article>
 
         <!-- Blog Post 4 -->
         <article class="blog-post">
-            <img src="placeholder4.jpg" alt="Chess Endgames">
-            <h2>🔚 Essential Chess Endgames You Must Know</h2>
-            <p>Mastering the endgame is crucial for winning close games. This blog covers fundamental endgame techniques that every chess player should know.</p>
-            <a href="https://lichess.org/blog/Xyd2bhIAACMAH8Iz/endgame-training" class="btn">View More</a>
+            <img src="placeholder4.jpg" alt="How Magnus Carlsen Scared Away His Fans in Germany">
+            <h2>😲 How Magnus Carlsen Scared Away His Fans in Germany</h2>
+            <p>A fascinating insight into an unexpected incident where the world champion's actions resulted in surprising reactions from his German fans.</p>
+            <a href="https://lichess.org/@/Sisyphu5/blog/how-magnus-carlsen-scared-away-his-fans-in-germany/5PnE7ycX" class="btn">View More</a>
         </article>
 
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 LichessOnline.blogs. All rights reserved.</p>
+        <p>&copy; 2025 LichessOnline.blogs. All rights reserved.</p>
     </footer>
 
     <script>
@@ -63,15 +81,13 @@
             let username = localStorage.getItem("username");
 
             if (!username) {
-                fetch("https://api64.ipify.org?format=json")
-                .then(response => response.json())
-                .then(data => {
-                    let userIP = data.ip; // Fetch user's IP Address
-                    alert("Access Denied! Please create an account to view blogs.");
-                    console.log("Blocked IP:", userIP);
-                    window.location.href = "signup.html"; // Redirect to Signup page
-                })
-                .catch(error => console.error("Error fetching IP:", error));
+                // Blur the blog content and show the message
+                document.getElementById("blogsContent").classList.add("blurred");
+                let message = document.createElement("div");
+                message.className = "blur-message";
+                message.innerHTML = "Access Denied! Please create an account to view blogs.";
+                document.getElementById("blogsContent").parentNode.insertBefore(message, document.getElementById("blogsContent"));
+                message.style.display = "block";
             } else {
                 document.getElementById("userStatus").innerHTML = `<strong>Welcome, ${username}!</strong>`;
             }
