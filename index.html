@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - LichessOnline</title>
+</head>
+<body>
+    <h2>Signup</h2>
+    <form id="signupForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const binId = "67e0f5078a456b79667b758a";  // Replace with your JSONBin ID
+        const apiKey = "$2a$10$KYZf2SJ0D4vPAJzDRZdhOedUoRw6PrUyRG8Sas7.2ykXKZpU3UuIq";  // Replace with your JSONBin API Key
+
+        document.getElementById("signupForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            let username = document.getElementById("username").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            // Fetch existing users
+            let response = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+                method: "GET",
+                headers: { "X-Master-Key": apiKey }
+            });
+
+            let data = await response.json();
+            let users = data.record.users;
+
+            // Prevent duplicate username
+            if (users.some(user => user.username === username)) {
+                alert("Username already taken! Try another one.");
+                return;
+            }
+
+            // Add new user to the users array
+            users.push({ username, email, password });
+
+            // Update JSONBin with the new user
+            await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Master-Key": apiKey
+                },
+                body: JSON.stringify({ users })
+            });
+
+            // Redirect to homepage with username in localStorage
+            localStorage.setItem("username", username);
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
