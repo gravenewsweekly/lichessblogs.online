@@ -1,63 +1,68 @@
 /* General Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Press Start 2P', monospace;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #222;
+    color: #0ff; /* Neon Cyan */
+    text-align: center;
 }
 
 /* Navigation Bar */
 nav {
-    background: #333;
-    padding: 12px;
-    text-align: center;
+    background: linear-gradient(90deg, #ff00ff, #ff5500);
+    padding: 15px;
+    border-bottom: 4px solid #000;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    margin: 0 12px;
-    font-size: 16px;
-    transition: 0.3s;
+    margin: 0 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 nav a:hover {
-    color: #ddd;
+    color: #ff0;
 }
 
 /* Header */
 header {
-    text-align: center;
-    padding: 30px 15px;
-    background: white;
-    border-bottom: 1px solid #ddd;
+    padding: 40px 20px;
+    background: #333;
+    border-bottom: 5px solid #ff5500;
+    box-shadow: 0px 4px 10px rgba(255, 85, 0, 0.5);
 }
 
 header h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #444;
+    font-size: 22px;
+    color: #ff0;
+    text-shadow: 2px 2px 0px #000;
 }
 
 /* Content Section */
 .content {
-    width: 90%;
-    max-width: 800px;
+    width: 80%;
+    max-width: 750px;
     margin: 20px auto;
-    background: white;
-    padding: 15px;
+    background: #111;
+    padding: 20px;
+    border: 3px solid #ff00ff;
     border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px #ff00ff;
+    text-align: left;
 }
 
 /* Footer */
 footer {
-    text-align: center;
-    padding: 8px;
-    background: #333;
-    color: white;
-    font-size: 14px;
+    padding: 12px;
+    background: #000;
+    color: #ff0;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
 /* Forms */
@@ -66,50 +71,69 @@ form {
     flex-direction: column;
     width: 100%;
     max-width: 400px;
-    margin: 15px auto;
+    margin: 20px auto;
 }
 
 form label {
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 5px;
-    font-size: 14px;
+    color: #ff5500;
 }
 
 form input {
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ff0;
     border-radius: 5px;
     font-size: 14px;
+    background: #000;
+    color: #ff0;
+    font-family: 'Courier New', monospace;
 }
 
 form button {
-    background: #333;
+    background: #ff5500;
     color: white;
-    padding: 10px;
-    border: none;
+    padding: 12px;
+    border: 3px solid #ff0;
     cursor: pointer;
-    border-radius: 5px;
     font-size: 14px;
+    text-transform: uppercase;
 }
 
 form button:hover {
-    background: #555;
+    background: #ff0;
+    color: #000;
 }
 
 /* Logout Button */
 #logoutBtn {
     background: red;
     color: white;
-    border: none;
-    padding: 8px 12px;
+    border: 3px solid yellow;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 5px;
     font-size: 14px;
 }
 
 #logoutBtn:hover {
     background: darkred;
+    border-color: #ff0;
+}
+
+/* Retro Button Style */
+button {
+    font-family: 'Press Start 2P', monospace;
+    border: 3px solid #ff0;
+    background: #ff5500;
+    padding: 10px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0px #000;
+}
+
+button:hover {
+    background: #ff0;
+    color: #000;
 }
 
 /* Responsive Design */
