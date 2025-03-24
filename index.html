@@ -27,19 +27,16 @@
 
     <section class="content">
         <h2>Why Choose LichessOnline?</h2>
-        <p>At <strong>LichessOnline.blogs</strong>, we provide a seamless and secure platform for chess enthusiasts of all levels. Whether you are a beginner or an advanced player, our goal is to help you enhance your skills through practice, strategy guides, and real-time gameplay.</p>
+        <p>At <strong>LichessOnline.blogs</strong>, we provide a seamless and secure platform for chess enthusiasts of all levels.</p>
 
         <h3>✔ 100% Secure & Private</h3>
         <p>We take user privacy seriously. Your personal data is encrypted and never shared with third parties.</p>
 
-        <h3>✔ Play with Real Players</h3>
-        <p>Join an active chess community where you can challenge real players worldwide.</p>
+        <h3>✔ View Blogs</h3>
+        <p>Join an active chess community where regular top lichess blogs been published.</p>
 
         <h3>✔ Learn from the Best</h3>
-        <p>Access exclusive chess tutorials, expert strategies, and improvement tips.</p>
-
-        <h3>✔ No Ads, No Distractions</h3>
-        <p>We believe in an ad-free experience so that you can focus entirely on the game.</p>
+        <p>Access to top blogs including chess tutorials, expert strategies, and improvement tips.</p>
     </section>
 
     <!-- Footer -->
@@ -52,9 +49,16 @@
         let userStatus = document.getElementById("userStatus");
 
         if (username) {
-            userStatus.innerHTML = `<strong>Welcome, ${username}!</strong>`;
+            userStatus.innerHTML = `<strong>Welcome, ${username}!</strong> 
+                                    <button id="logoutBtn">Logout</button>`;
+
+            document.getElementById("logoutBtn").addEventListener("click", function() {
+                localStorage.removeItem("username");
+                window.location.href = "login.html";
+            });
+
         } else {
-            userStatus.innerHTML = `<a href="signup.html">Signup</a>`;
+            userStatus.innerHTML = `<a href="signup.html">Signup</a> | <a href="login.html">Login</a>`;
         }
     </script>
 </body>
