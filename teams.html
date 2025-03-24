@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Lichess Teams - LichessOnline</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Blurred content styling */
+        .blurred {
+            filter: blur(5px);
+            pointer-events: none;
+            user-select: none;
+        }
+        .blur-message {
+            text-align: center;
+            font-size: 18px;
+            color: #ff0;
+            background-color: #222;
+            padding: 10px;
+            margin: 20px;
+            border: 2px solid #ff0;
+            display: none;
+        }
+        .content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .content li {
+            margin: 10px 0;
+        }
+        .content a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html" class="logo">LichessOnline</a>
+        <span id="userStatus"></span> 
+    </nav>
+
+    <!-- Teams Content -->
+    <section class="content" id="teamsContent">
+        <h1>Top 25 Lichess Teams</h1>
+        <p>Join the best chess communities and participate in competitive tournaments!</p>
+
+        <ul>
+            <li><a href="https://lichess.org/team/lichess" target="_blank">Lichess</a></li>
+            <li><a href="https://lichess.org/team/team-france" target="_blank">Team France</a></li>
+            <li><a href="https://lichess.org/team/team-russia" target="_blank">Team Russia</a></li>
+            <li><a href="https://lichess.org/team/team-usa" target="_blank">Team USA</a></li>
+            <li><a href="https://lichess.org/team/team-germany" target="_blank">Team Germany</a></li>
+            <li><a href="https://lichess.org/team/india" target="_blank">India</a></li>
+            <li><a href="https://lichess.org/team/magnus-carlsen-fan-club" target="_blank">Magnus Carlsen Fan Club</a></li>
+            <li><a href="https://lichess.org/team/hikaru-nakamura-fan-club" target="_blank">Hikaru Nakamura Fan Club</a></li>
+            <li><a href="https://lichess.org/team/agadmator-fan-club" target="_blank">Agadmator Fan Club</a></li>
+            <li><a href="https://lichess.org/team/chesstempo" target="_blank">ChessTempo</a></li>
+            <li><a href="https://lichess.org/team/chessbrah" target="_blank">ChessBrah</a></li>
+            <li><a href="https://lichess.org/team/chess-club-and-scholarship" target="_blank">Chess Club and Scholarship</a></li>
+            <li><a href="https://lichess.org/team/lichess-masters" target="_blank">Lichess Masters</a></li>
+            <li><a href="https://lichess.org/team/blitzstream" target="_blank">BlitzStream</a></li>
+            <li><a href="https://lichess.org/team/brazil-chess" target="_blank">Brazil Chess</a></li>
+            <li><a href="https://lichess.org/team/world-chess-club" target="_blank">World Chess Club</a></li>
+            <li><a href="https://lichess.org/team/england-chess" target="_blank">England Chess</a></li>
+            <li><a href="https://lichess.org/team/italy-chess" target="_blank">Italy Chess</a></li>
+            <li><a href="https://lichess.org/team/lichess-blitz-arena" target="_blank">Lichess Blitz Arena</a></li>
+            <li><a href="https://lichess.org/team/world-chess-blitz" target="_blank">World Chess Blitz</a></li>
+            <li><a href="https://lichess.org/team/grandmaster-chess" target="_blank">Grandmaster Chess</a></li>
+            <li><a href="https://lichess.org/team/norway-chess-club" target="_blank">Norway Chess Club</a></li>
+            <li><a href="https://lichess.org/team/canada-chess" target="_blank">Canada Chess</a></li>
+            <li><a href="https://lichess.org/team/chess-students" target="_blank">Chess Students</a></li>
+        </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 LichessOnline. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to check if user has an account (localStorage)
+        function checkUserAccount() {
+            let username = localStorage.getItem("username");
+
+            if (!username) {
+                // Blur the teams content and show the message
+                document.getElementById("teamsContent").classList.add("blurred");
+                let message = document.createElement("div");
+                message.className = "blur-message";
+                message.innerHTML = "Access Denied! Please create an account to view this page.";
+                document.getElementById("teamsContent").parentNode.insertBefore(message, document.getElementById("teamsContent"));
+                message.style.display = "block";
+            } else {
+                document.getElementById("userStatus").innerHTML = `<strong>Welcome, ${username}!</strong>`;
+            }
+        }
+
+        // Run the authentication check when the page loads
+        checkUserAccount();
+    </script>
+
+</body>
+</html>
