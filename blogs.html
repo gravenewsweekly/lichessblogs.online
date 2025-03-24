@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - LichessOnline</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html" class="logo">LichessOnline</a>
+        <span id="userStatus"></span> 
+    </nav>
+
+    <!-- Blog Content -->
+    <section class="content" id="blogsContent">
+        <h1>Top Chess Blogs & Insights</h1>
+
+        <!-- Blog Post 1 -->
+        <article class="blog-post">
+            <img src="placeholder1.jpg" alt="Chess Opening Strategies">
+            <h2>♟️ Mastering Chess Openings</h2>
+            <p>Learn the best opening strategies to gain control early in the game. This blog discusses the most effective openings like the Sicilian Defense, French Defense, and more.</p>
+            <a href="https://lichess.org/blog/XvR2YxIAACgA8e7l/opening-principles" class="btn">View More</a>
+        </article>
+
+        <!-- Blog Post 2 -->
+        <article class="blog-post">
+            <img src="placeholder2.jpg" alt="Chess Tactics and Tricks">
+            <h2>🔥 Tactics & Tricks for Beginners</h2>
+            <p>Improve your game with essential tactical patterns like forks, pins, skewers, and discovered attacks. These tactics can turn the game in your favor.</p>
+            <a href="https://lichess.org/blog/XvR2YxIAACgA8e7k/chess-tactics" class="btn">View More</a>
+        </article>
+
+        <!-- Blog Post 3 -->
+        <article class="blog-post">
+            <img src="placeholder3.jpg" alt="How to Improve Chess Rating">
+            <h2>🏆 How to Reach 2000+ Elo?</h2>
+            <p>Advanced players share their secrets on how to reach 2000+ Elo. Learn about opening preparation, positional understanding, and endgame techniques.</p>
+            <a href="https://lichess.org/blog/YdSdBRAAAMvJX5Ys/improving-your-rating" class="btn">View More</a>
+        </article>
+
+        <!-- Blog Post 4 -->
+        <article class="blog-post">
+            <img src="placeholder4.jpg" alt="Chess Endgames">
+            <h2>🔚 Essential Chess Endgames You Must Know</h2>
+            <p>Mastering the endgame is crucial for winning close games. This blog covers fundamental endgame techniques that every chess player should know.</p>
+            <a href="https://lichess.org/blog/Xyd2bhIAACMAH8Iz/endgame-training" class="btn">View More</a>
+        </article>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LichessOnline.blogs. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to check if user has an account (localStorage)
+        function checkUserAccount() {
+            let username = localStorage.getItem("username");
+
+            if (!username) {
+                fetch("https://api64.ipify.org?format=json")
+                .then(response => response.json())
+                .then(data => {
+                    let userIP = data.ip; // Fetch user's IP Address
+                    alert("Access Denied! Please create an account to view blogs.");
+                    console.log("Blocked IP:", userIP);
+                    window.location.href = "signup.html"; // Redirect to Signup page
+                })
+                .catch(error => console.error("Error fetching IP:", error));
+            } else {
+                document.getElementById("userStatus").innerHTML = `<strong>Welcome, ${username}!</strong>`;
+            }
+        }
+
+        // Run the authentication check when the page loads
+        checkUserAccount();
+    </script>
+
+</body>
+</html>
