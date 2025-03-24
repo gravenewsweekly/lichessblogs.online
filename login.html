@@ -29,8 +29,16 @@
     <script>
         document.getElementById("loginForm").addEventListener("submit", async function(event) {
             event.preventDefault();
-            let username = document.getElementById("username").value;
+            
+            let username = document.getElementById("username").value.trim();
             let password = document.getElementById("password").value;
+
+            // Check if the account was deleted before making API request
+            let deletedUsers = JSON.parse(localStorage.getItem("deletedUsers")) || [];
+            if (deletedUsers.includes(username)) {
+                alert("This account has been deleted and cannot be accessed.");
+                return;
+            }
 
             const binId = "670ef5078a456b79667b758a"; // Your JSONBin bin ID
             const apiKey = "$2a$10$KYZf2SJ0D4vPAJzDRZdhOedUoRw6PrUyRG8Sas7.2ykXKZpU3UuIq"; // Replace with your actual JSONBin API key
@@ -51,7 +59,7 @@
                 let user = users.find(user => user.username === username && user.password === password);
 
                 if (user) {
-                    localStorage.setItem("username", username);
+                    localStorage.setItem("username", username); // Store login session
                     window.location.href = "index.html"; // Redirect to homepage
                 } else {
                     alert("Invalid username or password!");
