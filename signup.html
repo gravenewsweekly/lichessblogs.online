@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup - LichessOnline</title>
+    <title>ArticleX.in - Free Articles for Everyone</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h2>Signup</h2>
@@ -20,13 +21,31 @@
 
             const binId = "67e0f5078a456b79667b758a";  // Replace with your JSONBin ID
             const apiKey = "$2a$10$KYZf2SJ0D4vPAJzDRZdhOedUoRw6PrUyRG8Sas7.2ykXKZpU3UuIq";  // Replace with your JSONBin API Key
-            
+
             let username = document.getElementById("username").value.trim();
             let email = document.getElementById("email").value.trim();
             let password = document.getElementById("password").value.trim();
 
-            if (!username || !email || !password) {
-                alert("All fields are required!");
+            // Vulgar username list
+            const bannedWords = ["admin", "root", "fuck", "shit", "bitch", "asshole", "nigger", "pussy", "dick", "cunt"];
+
+            // Username validation (No SQL injection, no vulgar words, no email as username)
+            if (!/^[a-zA-Z0-9_]{3,15}$/.test(username)) {
+                alert("Invalid username! Only letters, numbers, and underscores (3-15 characters) allowed.");
+                return;
+            }
+            if (bannedWords.some(word => username.toLowerCase().includes(word))) {
+                alert("Inappropriate username detected! Choose another.");
+                return;
+            }
+            if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(username)) {
+                alert("Username cannot be an email address!");
+                return;
+            }
+
+            // Email validation (basic format check)
+            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+                alert("Invalid email format!");
                 return;
             }
 
@@ -45,6 +64,12 @@
                 // Prevent duplicate username
                 if (users.some(user => user.username === username)) {
                     alert("Username already taken! Try another one.");
+                    return;
+                }
+
+                // Prevent duplicate email
+                if (users.some(user => user.email === email)) {
+                    alert("Email already in use! Try another one.");
                     return;
                 }
 
