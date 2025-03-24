@@ -18,10 +18,17 @@ for (let i = 0; i < 64; i++) {
     const square = document.createElement("div");
     square.classList.add("square");
     square.classList.add((Math.floor(i / 8) + i) % 2 === 0 ? "light" : "dark");
-    square.textContent = initialPosition[i];
     square.dataset.index = i;
-    square.draggable = true;
-    square.addEventListener("dragstart", dragStart);
+
+    if (initialPosition[i] !== "") {
+        const piece = document.createElement("div");
+        piece.textContent = initialPosition[i];
+        piece.classList.add("piece");
+        piece.draggable = true;
+        piece.addEventListener("dragstart", dragStart);
+        square.appendChild(piece);
+    }
+
     square.addEventListener("dragover", dragOver);
     square.addEventListener("drop", dropPiece);
     board.appendChild(square);
@@ -29,9 +36,9 @@ for (let i = 0; i < 64; i++) {
 
 // Drag & Drop Logic
 function dragStart(event) {
-    selectedPiece = event.target.textContent;
-    selectedSquare = event.target;
-    event.dataTransfer.setData("text", selectedPiece);
+    selectedPiece = event.target;
+    selectedSquare = selectedPiece.parentElement;
+    event.dataTransfer.setData("text", selectedPiece.textContent);
 }
 
 function dragOver(event) {
@@ -40,19 +47,22 @@ function dragOver(event) {
 
 function dropPiece(event) {
     event.preventDefault();
-    const targetSquare = event.target;
+    const targetSquare = event.target.closest(".square");
 
-    if (!targetSquare.classList.contains("square")) return;
-    
+    if (!targetSquare || targetSquare === selectedSquare) return;
+
     // Prevent capturing own piece
-    if ((selectedPiece.match(/[♜♞♝♛♚♟]/) && targetSquare.textContent.match(/[♜♞♝♛♚♟]/)) ||
-        (selectedPiece.match(/[♙♖♘♗♕♔]/) && targetSquare.textContent.match(/[♙♖♘♗♕♔]/))) {
-        return;
+    const targetPiece = targetSquare.querySelector(".piece");
+    if (targetPiece) {
+        if ((selectedPiece.textContent.match(/[♜♞♝♛♚♟]/) && targetPiece.textContent.match(/[♜♞♝♛♚♟]/)) ||
+            (selectedPiece.textContent.match(/[♙♖♘♗♕♔]/) && targetPiece.textContent.match(/[♙♖♘♗♕♔]/))) {
+            return;
+        }
+        targetSquare.removeChild(targetPiece);
     }
 
-    targetSquare.textContent = selectedPiece;
-    selectedSquare.textContent = "";
-    
+    targetSquare.appendChild(selectedPiece);
+
     checkGameOver();
 }
 
@@ -61,9 +71,9 @@ function checkGameOver() {
     let whiteKing = false;
     let blackKing = false;
     
-    document.querySelectorAll(".square").forEach(square => {
-        if (square.textContent === "♔") whiteKing = true;
-        if (square.textContent === "♚") blackKing = true;
+    document.querySelectorAll(".piece").forEach(piece => {
+        if (piece.textContent === "♔") whiteKing = true;
+        if (piece.textContent === "♚") blackKing = true;
     });
 
     if (!whiteKing) {
@@ -78,6 +88,14 @@ function checkGameOver() {
 // Reset Board
 function resetBoard() {
     document.querySelectorAll(".square").forEach((square, i) => {
-        square.textContent = initialPosition[i];
+        square.innerHTML = "";
+        if (initialPosition[i] !== "") {
+            const piece = document.createElement("div");
+            piece.textContent = initialPosition[i];
+            piece.classList.add("piece");
+            piece.draggable = true;
+            piece.addEventListener("dragstart", dragStart);
+            square.appendChild(piece);
+        }
     });
 }
