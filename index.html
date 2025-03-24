@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LichessOnline - Play & Learn Chess</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html" class="logo">LichessOnline</a>
+        <span id="userStatus"></span> 
+        <a href="about.html">About Us</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="tos.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Main Content -->
+    <header>
+        <h1>Welcome to LichessOnline</h1>
+        <p>Your trusted online chess platform for learning, playing, and improving.</p>
+    </header>
+
+    <section class="content">
+        <h2>Why Choose LichessOnline?</h2>
+        <p>At <strong>LichessOnline.blogs</strong>, we provide a seamless and secure platform for chess enthusiasts of all levels. Whether you are a beginner or an advanced player, our goal is to help you enhance your skills through practice, strategy guides, and real-time gameplay.</p>
+
+        <h3>✔ 100% Secure & Private</h3>
+        <p>We take user privacy seriously. Your personal data is encrypted and never shared with third parties.</p>
+
+        <h3>✔ Play with Real Players</h3>
+        <p>Join an active chess community where you can challenge real players worldwide.</p>
+
+        <h3>✔ Learn from the Best</h3>
+        <p>Access exclusive chess tutorials, expert strategies, and improvement tips.</p>
+
+        <h3>✔ No Ads, No Distractions</h3>
+        <p>We believe in an ad-free experience so that you can focus entirely on the game.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LichessOnline.blogs. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let username = localStorage.getItem("username");
+        let userStatus = document.getElementById("userStatus");
+
+        if (username) {
+            userStatus.innerHTML = `<strong>Welcome, ${username}!</strong>`;
+        } else {
+            userStatus.innerHTML = `<a href="signup.html">Signup</a>`;
+        }
+    </script>
+</body>
+</html>
