@@ -20,13 +20,17 @@
         <li><a href="about.html">📌 About</a></li>
         <li><a href="contact.html">📩 Contact</a></li>
         <li><a href="terms.html">🫂 Terms</a></li>
-        <li><a href="privacy.html">🔑Privacy</a></li>
+        <li><a href="privacy.html">🔑 Privacy</a></li>
     </ul>
-    <a href="signup.html" class="cta-button">Join Now</a>
 </aside>
 
 <!-- Main Content -->
 <main class="content">
+    <!-- User Status -->
+    <div class="user-status">
+        <span id="userStatus"></span>
+    </div>
+
     <!-- Description Section -->
     <section class="description">
         <h2>Welcome to LichessOnline</h2>
@@ -68,31 +72,36 @@
     <p>&copy; 2025 LichessOnline. Not affiliated with Lichess.org.</p>
 </footer>
 
-</body>
-</html>
-
-    <script>
+<!-- JavaScript for User Authentication -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         let username = localStorage.getItem("username");
         let userStatus = document.getElementById("userStatus");
 
         if (username) {
             userStatus.innerHTML = `<strong>Welcome, ${username}!</strong> 
+                                    <button id="logoutBtn">Logout</button>
                                     <button id="deleteAccountBtn">Delete Account</button>`;
 
-            document.getElementById("deleteAccountBtn").addEventListener("click", function() {
+            document.getElementById("logoutBtn").addEventListener("click", function () {
+                localStorage.removeItem("username"); // Remove username from local storage
+                alert("You have logged out.");
+                window.location.reload(); // Reload the page to reflect changes
+            });
+
+            document.getElementById("deleteAccountBtn").addEventListener("click", function () {
                 let confirmDelete = confirm("Are you sure you want to delete your account? This action cannot be undone.");
                 if (confirmDelete) {
-                    localStorage.clear(); // Clear user data
-                    sessionStorage.clear(); // Clear session storage
+                    localStorage.clear(); // Clear all user data
                     alert("Your account has been deleted.");
                     window.location.href = "signup.html"; // Redirect to signup page
                 }
             });
-
         } else {
             userStatus.innerHTML = `<a href="signup.html">Signup</a> | <a href="login.html">Login</a>`;
         }
-    </script>
+    });
+</script>
 
 </body>
 </html>
