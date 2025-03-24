@@ -14,7 +14,7 @@
         <span id="userStatus"></span> 
         <a href="about.html">About Us</a>
         <a href="blogs.html">Blogs</a>
-        <a href="tos.html">Terms of Service</a>
+        <a href="terms.html">Terms of Service</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Contact</a>
     </nav>
@@ -33,10 +33,13 @@
         <p>We take user privacy seriously. Your personal data is encrypted and never shared with third parties.</p>
 
         <h3>✔ View Blogs</h3>
-        <p>Join an active chess community where regular top lichess blogs been published.</p>
+        <p>Join an active chess community where regular top Lichess blogs are published.</p>
 
         <h3>✔ Learn from the Best</h3>
         <p>Access to top blogs including chess tutorials, expert strategies, and improvement tips.</p>
+
+        <h3>✔ Play Chess Anytime</h3>
+        <p>Challenge players worldwide, practice tactics, and improve your rating.</p>
     </section>
 
     <!-- Footer -->
@@ -50,11 +53,16 @@
 
         if (username) {
             userStatus.innerHTML = `<strong>Welcome, ${username}!</strong> 
-                                    <button id="logoutBtn">Logout</button>`;
+                                    <button id="deleteAccountBtn">Delete Account</button>`;
 
-            document.getElementById("logoutBtn").addEventListener("click", function() {
-                localStorage.removeItem("username");
-                window.location.href = "login.html";
+            document.getElementById("deleteAccountBtn").addEventListener("click", function() {
+                let confirmDelete = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+                if (confirmDelete) {
+                    localStorage.clear(); // Delete all stored data (history, username, etc.)
+                    sessionStorage.clear(); // Clears session storage too (if any)
+                    alert("Your account has been deleted.");
+                    window.location.href = "signup.html"; // Redirect to signup page
+                }
             });
 
         } else {
