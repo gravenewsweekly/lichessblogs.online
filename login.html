@@ -27,17 +27,38 @@
     </section>
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
+        document.getElementById("loginForm").addEventListener("submit", async function(event) {
             event.preventDefault();
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
 
-            // Mock login validation (Replace with real authentication)
-            if (username === "test" && password === "1234") {
-                localStorage.setItem("username", username);
-                window.location.href = "index.html"; // Redirect to homepage
-            } else {
-                alert("Invalid username or password!");
+            const binId = "670ef5078a456b79667b758a"; // Your JSONBin bin ID
+            const apiKey = "$2a$10$KYZf2SJ0D4vPAJzDRZdhOedUoRw6PrUyRG8Sas7.2ykXKZpU3UuIq"; // Replace with your actual JSONBin API key
+
+            try {
+                let response = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+                    method: "GET",
+                    headers: {
+                        "X-Master-Key": apiKey
+                    }
+                });
+
+                if (!response.ok) throw new Error("Failed to fetch data");
+
+                let data = await response.json();
+                let users = data.record.users; // Get users from JSON
+
+                let user = users.find(user => user.username === username && user.password === password);
+
+                if (user) {
+                    localStorage.setItem("username", username);
+                    window.location.href = "index.html"; // Redirect to homepage
+                } else {
+                    alert("Invalid username or password!");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error connecting to server!");
             }
         });
     </script>
